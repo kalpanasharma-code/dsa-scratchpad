@@ -7,9 +7,9 @@ cin>>num;
 int ans = 0 ;
 int place = 1 ;
 while(num!=0){
- int bit = num%2 ;
+ int bit = num&1;
  ans  = ans+(bit*place);
- num = num/2;
+ num = num>>1;
  place = place*10;
 }
 cout<<"binary is : " << ans;
