@@ -6,10 +6,14 @@ using namespace std;
 class Solution {
  public:
      bool check(int num ){
-        if((num & (num-1))== 0){
-             return true ;
-        }
-        return false ;
+        if(num<1) 
+        return 0 ;
+       while(num!=1){
+        if(num%2==1)
+        return 0 ;
+        num = num/2 ;
+       }
+       return 1 ;
      }
 
 };
