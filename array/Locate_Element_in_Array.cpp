@@ -7,7 +7,7 @@ int searchElement(int arr[], int size, int key) {
             return i;   // index found
         }
     }
-    return -1;          // not found
+    return -1;          // not found  
 }
 
 int main() {
