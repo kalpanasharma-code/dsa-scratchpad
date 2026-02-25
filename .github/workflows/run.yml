@@ -1,0 +1,23 @@
+name: Run All C++ Files
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Compile and Run All C++ Files
+      run: |
+        for file in $(find . -name "*.cpp"); do
+          echo "Compiling $file"
+          g++ "$file" -o output
+          echo "Running $file"
+          ./output
+          echo "----------------------"
+        done
