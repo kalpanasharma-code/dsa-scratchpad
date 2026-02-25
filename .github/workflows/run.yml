@@ -1,4 +1,4 @@
-name: Run All C++ Files
+name: Run Executable C++ Files
 
 on:
   push:
@@ -12,12 +12,16 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Compile and Run All C++ Files
+    - name: Compile and Run Only Files With main()
       run: |
         for file in $(find . -name "*.cpp"); do
-          echo "Compiling $file"
-          g++ "$file" -o output
-          echo "Running $file"
-          ./output
-          echo "----------------------"
+          if grep -q "int main" "$file"; then
+            echo "Compiling $file"
+            g++ "$file" -o output
+            echo "Running $file"
+            ./output
+            echo "----------------------"
+          else
+            echo "Skipping $file (no main function)"
+          fi
         done
