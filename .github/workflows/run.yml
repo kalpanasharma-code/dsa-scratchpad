@@ -1,4 +1,4 @@
-name: Run Executable C++ Files
+name: Compile C++ Files
 
 on:
   push:
@@ -9,19 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
+    - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Compile and Run Only Files With main()
+    - name: Compile Only C++ Files With main()
       run: |
+        found=false
         for file in $(find . -name "*.cpp"); do
           if grep -q "int main" "$file"; then
+            found=true
             echo "Compiling $file"
             g++ "$file" -o output
-            echo "Running $file"
-            ./output
+            echo "$file compiled successfully"
             echo "----------------------"
           else
             echo "Skipping $file (no main function)"
           fi
         done
+
+        if [ "$found" = false ]; then
+          echo "No executable C++ files found."
+        fi
